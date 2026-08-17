@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚡ IRIAM WELCOME PASS COPIER ⚡</title>
+    <style>
+        /* 全体の背景：黒＋サイバーグリッド（方眼） */
+        body { 
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+            padding: 40px 20px; 
+            background-color: #050508; 
+            background-image: 
+                linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
+            color: #ffffff;
+            margin: 0;
+        }
+
+        /* 画面中央寄せのコンテナ */
+        .container {
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        /* ヘッダーエリア */
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        /* タイトルの強烈なネオン発光 */
+        h1 { 
+            font-size: 28px;
+            font-weight: 900;
+            letter-spacing: 3px;
+            color: #fff;
+            text-shadow: 
+                0 0 5px #fff,
+                0 0 10px #00f0ff,
+                0 0 20px #00f0ff,
+                0 0 40px #00f0ff;
+            margin: 0 0 10px 0;
+        }
+
+        .subtitle {
+            color: #ff007f;
+            font-size: 14px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-shadow: 0 0 8px rgba(255, 0, 127, 0.6);
+        }
+
+        /* --- ネオンカード共通スタイル --- */
+        .card { 
+            background: rgba(20, 20, 28, 0.85); 
+            backdrop-filter: blur(4px);
+            padding: 25px; 
+            border-radius: 16px; 
+            margin-bottom: 30px; 
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        /* ホバー時の浮き上がり・発光強化 */
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* タイトルバッジ（項目ごとの見出し） */
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+        }
+
+        /* 定型文テキスト */
+        .text { 
+            font-size: 15px; 
+            color: #e2e8f0; 
+            margin-bottom: 20px; 
+            white-space: pre-wrap; 
+            line-height: 1.7;
+        }
+
+        /* ボタン共通スタイル */
+        button { 
+            background: transparent; 
+            border: 2px solid;
+            padding: 12px 20px; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-weight: bold;
+            font-size: 14px;
+            letter-spacing: 2px;
+            transition: all 0.2s ease;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        button:active {
+            transform: scale(0.98);
+        }
+
+        /* --- 🎨 カラーバリエーション（ピンク・水色・紫） --- */
+
+        /* 1. ネオンピンク */
+        .card.pink { border: 1px solid #ff007f; box-shadow: 0 0 15px rgba(255, 0, 127, 0.15); }
+        .card.pink:hover { box-shadow: 0 0 25px rgba(255, 0, 127, 0.35); }
+        .card.pink .badge { background: rgba(255, 0, 127, 0.2); color: #ff007f; border: 1px solid #ff007f; }
+        .card.pink button { color: #ff007f; border-color: #ff007f; text-shadow: 0 0 4px #ff007f; }
+        .card.pink button:hover { background: #ff007f; color: #000; box-shadow: 0 0 20px #ff007f; text-shadow: none; }
+
+        /* 2. ネオンシアン（水色） */
+        .card.cyan { border: 1px solid #00f0ff; box-shadow: 0 0 15px rgba(0, 240, 255, 0.15); }
+        .card.cyan:hover { box-shadow: 0 0 25px rgba(0, 240, 255, 0.35); }
+        .card.cyan .badge { background: rgba(0, 240, 255, 0.2); color: #00f0ff; border: 1px solid #00f0ff; }
+        .card.cyan button { color: #00f0ff; border-color: #00f0ff; text-shadow: 0 0 4px #00f0ff; }
+        .card.cyan button:hover { background: #00f0ff; color: #000; box-shadow: 0 0 20px #00f0ff; text-shadow: none; }
+
+        /* 3. ネオンパープル（紫） */
+        .card.purple { border: 1px solid #a020f0; box-shadow: 0 0 15px rgba(160, 32, 240, 0.15); }
+        .card.purple:hover { box-shadow: 0 0 25px rgba(160, 32, 240, 0.35); }
+        .card.purple .badge { background: rgba(160, 32, 240, 0.2); color: #b854ff; border: 1px solid #a020f0; }
+        .card.purple button { color: #b854ff; border-color: #a020f0; text-shadow: 0 0 4px #a020f0; }
+        .card.purple button:hover { background: #a020f0; color: #000; box-shadow: 0 0 20px #a020f0; text-shadow: none; }
+
+        /* --- ✔ コピー成功時のライムグリーンネオン（全色共通） --- */
+        button.success {
+            color: #39ff14 !important;
+            border-color: #39ff14 !important;
+            background: transparent !important;
+            text-shadow: 0 0 6px #39ff14 !important;
+            box-shadow: 0 0 15px rgba(57, 255, 20, 0.4) !important;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>🔰 IRIAM WELCOME PASS FIXED TEXT</h1>
+        </header>
+
+        <!-- 1. 【定期】 (ピンク) -->
+        <div class="card pink">
+            <span class="badge">ウェルパ定期</span>
+            <div class="text" id="phrase1">【定期】こん〇〇！こちらウェルカムパス配信となります。IRIAMをダウンロードして2週間以内の初心者さん向けの配信で、ホーム画面では特別タグを設けられて表示されています！分からないことがあればライバーさんにじゃんじゃん質問しちゃいましょう！</div>
+            <button onclick="copyText('phrase1', this)">LAUNCH COPY</button>
+        </div>
+
+        <!-- 2. 【IRIAMとは？】 (水色) -->
+        <div class="card cyan">
+            <span class="badge">アプリ紹介</span>
+            <div class="text" id="phrase2">【IRIAMとは？】IRIAMはラグが少ない事でライバーとリスナーの距離感が近くに感じやすく、コメント、スター、ギフトのアクションを通じてコミュニケーションを楽しむ配信アプリとなっています！</div>
+            <button onclick="copyText('phrase2', this)">LAUNCH COPY</button>
+        </div>
+
+        <!-- 3. 【🌟】 (紫) -->
+        <div class="card purple">
+            <span class="badge">スター機能</span>
+            <div class="text" id="phrase3">【🌟】←『スター』右下の星マーク🌟をタップすると出るもので、ライバーさんに向けて送れる何回押しても大丈夫な無料のギフトになります！</div>
+            <button onclick="copyText('phrase3', this)">LAUNCH COPY</button>
+        </div>
+
+        <!-- 4. 【🎁】 (ピンク) -->
+        <div class="card pink">
+            <span class="badge">ギフト機能</span>
+            <div class="text" id="phrase4">【🎁】←『ギフト』は「ポイントを使用して応援出来るシステム！」ライバーさんへ応援やコミニケーションツールとして配信を盛り上げることができます！</div>
+            <button onclick="copyText('phrase4', this)">LAUNCH COPY</button>
+        </div>
+
+        <!-- 5. 【ライバープロフィール】 (水色) -->
+        <div class="card cyan">
+            <span class="badge">プロフィール</span>
+            <div class="text" id="phrase5">【ライバープロフィール】左上のライバーさんのアイコンをタップするとプロフィールを確認する事ができます！応援返礼特典や目標、視聴ルールなどよく確認してみてください！</div>
+            <button onclick="copyText('phrase5', this)">LAUNCH COPY</button>
+        </div>
+
+        <!-- 6. 【フォローとは？】 (紫) -->
+        <div class="card purple">
+            <span class="badge">フォロー</span>
+            <div class="text" id="phrase6">【フォローとは？】フォローすると、ホーム画面で配信中なのがすぐ分かり、配信時には通知が来たりします。IRIAMはアーカイブが残らないので気になるライバーさんはチェックして行ってね！</div>
+            <button onclick="copyText('phrase6', this)">LAUNCH COPY</button>
+        </div>
+
+        <!-- 7. 【チュートリアルミッション】 (ピンク) -->
+        <div class="card pink">
+            <span class="badge">ミッション</span>
+            <div class="text" id="phrase7">【チュートリアルミッション】各項目をクリアしていくとポイントを獲得することができるよ！右上の初心者マーク🔰をタップしてチェック！IRIAMでできる事を覚えていってください!自分のプロフィール→🔰マークをタップ→チュートリアルミッションを確認でポイントを回収することができます。</div>
+            <button onclick="copyText('phrase7', this)">LAUNCH COPY</button>
+        </div>
+
+        <!-- 8. 【シェアボタン】 (水色) -->
+        <div class="card cyan">
+            <span class="badge">シェア方法</span>
+            <div class="text" id="phrase8">【シェアボタン】Xと連携すると、左下の『↑』マークボタンから他媒体へシェアする事ができます！URLをコピーもでき、ライバーさんの応援に繋がります！（※通常配信のみ可能） IRIAMホーム画面→マイページ→右上の歯車マーク→外部アカウント連携→連携したい外部ON→ログイン許可をする→IRIAMに戻り連携が可能になります。</div>
+            <button onclick="copyText('phrase8', this)">LAUNCH COPY</button>
+        </div>
+
+        <!-- 9. 【バッジ】 (紫) -->
+        <div class="card purple">
+            <span class="badge">ファンバッジ</span>
+            <div class="text" id="phrase9">【バッジ】とは配信を視聴中に特定の条件を達成するとそのライバーさんの『ファンバッジ』を取得できます！名前に星マークと色がつき、後はライバーさんのプロフィールのトップファンメンバーに表示されます！</div>
+            <button onclick="copyText('phrase9', this)">LAUNCH COPY</button>
+        </div>
+
+        <!-- 10. 【🔥】 (ピンク) -->
+        <div class="card pink">
+            <span class="badge">応援スコア</span>
+            <div class="text" id="phrase10">【🔥】←『応援ポイントスコア』これの上昇具合で配信のコミュニティーのランクが決定していき、それによりライバーさんの日々の配信モチベーションに繋がります！ギフトやコメント、スターによって値が増えます。</div>
+            <button onclick="copyText('phrase10', this)">LAUNCH COPY</button>
+        </div>
+
+        <!-- 11. 【退出方法】 (水色) -->
+        <div class="card cyan">
+            <span class="badge">退出ルール</span>
+            <div class="text" id="phrase11">【退出方法】右上の『→』マークボタンをタップすると退出できて、ホーム画面に戻る事ができます！</div>
+            <button onclick="copyText('phrase11', this)">LAUNCH COPY</button>
+        </div>
+
+    </div>
+
+    <h5>原文様：<a href="https://x.com/yoshimikey3?s=11">好 鍵様</a></h5>
+    <script>
+        function copyText(elementId, button) {
+            const text = document.getElementById(elementId).innerText;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = button.innerText;
+                button.innerText = "⚡ COPIED ⚡";
+                button.classList.add('success');
+                
+                setTimeout(() => {
+                    button.innerText = originalText;
+                    button.classList.remove('success');
+                }, 1200);
+            });
+        }
+    </script>
+</body>
+</html>
