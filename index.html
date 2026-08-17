@@ -148,10 +148,17 @@
             <h1>🔰 IRIAM WELCOME PASS FIXED TEXT</h1>
         </header>
 
+<div class="container">
+    <!-- ⬇️ ここから追加 ⬇️ -->
+    <div style="background: rgba(20, 20, 28, 0.9); border: 2px dashed #00f0ff; padding: 20px; border-radius: 16px; margin-bottom: 40px; text-align: center;">
+        <label style="display: block; font-size: 14px; font-weight: bold; color: #00f0ff; margin-bottom: 12px;">💬 定期のあいさつ文を入力</label>
+        <input type="text" id="greetingInput" value="こん〇〇" oninput="updateGreeting()" style="background: #0d0d13; border: 1px solid #00f0ff; border-radius: 8px; color: #fff; padding: 12px 15px; font-size: 16px; width: 80%; max-width: 400px; text-align: center; outline: none;">
+    </div>
+
         <!-- 1. 【定期】 (ピンク) -->
         <div class="card pink">
             <span class="badge">ウェルパ定期</span>
-            <div class="text" id="phrase1">【定期】こん〇〇！こちらウェルカムパス配信となります。IRIAMをダウンロードして2週間以内の初心者さん向けの配信で、ホーム画面では特別タグを設けられて表示されています！分からないことがあればライバーさんにじゃんじゃん質問しちゃいましょう！</div>
+            <div class="text" id="phrase1">【定期】<span id="dynamicGreeting" style="color: #00f0ff; font-weight: bold;">こん〇〇</span>！こちらウェルカムパス配信となります。IRIAMをダウンロードして2週間以内の初心者さん向けの配信で、ホーム画面では特別タグを設けられて表示されています！分からないことがあればライバーさんにじゃんじゃん質問しちゃいましょう！</div>
             <button onclick="copyText('phrase1', this)">LAUNCH COPY</button>
         </div>
 
@@ -221,14 +228,18 @@
         <!-- 11. 【退出方法】 (水色) -->
         <div class="card cyan">
             <span class="badge">退出ルール</span>
-            <div class="text" id="phrase11">【退出方法】右上の『→』マークボタンをタップすると退出できて、ホーム画面に戻る事ができます！</div>
+            <div class="text" id="phrase11">【退出方法】右上の『→』マークボタンをタップすると退出できて、ホーム画面に戻る事ができます。IRIAMでは、枠を出る前に一言挨拶をしていくのがマナーとなっております。</div>
             <button onclick="copyText('phrase11', this)">LAUNCH COPY</button>
         </div>
 
     </div>
 
-    <h5>原文様：<a href="https://x.com/yoshimikey3?s=11">好 鍵様</a></h5>
+    <h5>原文様：<a href="">好 鍵様</a></h5>
     <script>
+        function updateGreeting() {
+        const inputVal = document.getElementById('greetingInput').value;
+        document.getElementById('dynamicGreeting').innerText = inputVal ? inputVal : "こん〇〇";
+    }
         function copyText(elementId, button) {
             const text = document.getElementById(elementId).innerText;
             
